@@ -1,0 +1,48 @@
+<div class="card-container">
+  <button [class.selected]="activity==this.selectedActivity"
+      *ngFor="let activity of activities; index as i"
+      class="card"
+      type="button"
+      (click)=onSelect(activity)>
+    <svg class="material-icons"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24">
+      <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+    </svg>
+    <span>
+      {{ activity.name }}<span *ngIf="activity.daysInARow"> ({{ activity.daysInARow }})</span>
+    </span>
+    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    </svg>
+  </button>
+</div>
+
+<div *ngIf="selectedActivity">
+  <div class="card-container">
+    <button class="card small" (click)=incrementDaysInARow()>
+      <svg class="material-icons green" xmlns="http://www.w3.org/2000/svg" width="24"
+        height="24" viewBox="0 0 24 24">
+        <path d="m 24 12 V 8 V 16 H 16 V 24 H 8 V 16 H 0 V 8 H 8 V 0 H 16 V 8 H 24"/>
+      </svg>
+    </button>
+    <button class="card small" (click)=decrementDaysInARow()>
+      <svg class="material-icons green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="m 24 8 V 16 H -24 V 8 H 24"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!--
+<div class="card-container">
+  <h2>Ajouter une activité</h2>
+  <div>
+  <label for="activityName">Nom de l'activité</label>
+  <input id="activityName" [(ngModel)]="newActivity.name" placeholder="name">
+  <button (click)="addNewActivity()">Ajouter</button>
+</div>
+<div>
+-->
