@@ -1,8 +1,7 @@
-import { sha1 } from '@angular/compiler/src/i18n/digest';
 import { Component, OnInit } from '@angular/core';
 
 import { Activity } from '../activity';
-import { ACTIVITIES } from '../mock-activities';
+import { ActivityService } from '../activity.service'
 
 @Component({
   selector: 'app-activity',
@@ -14,13 +13,16 @@ import { ACTIVITIES } from '../mock-activities';
 })
 export class ActivityComponent implements OnInit {
 
-  activities: Activity[] = ACTIVITIES;
+  activities: Activity[] = [];
   selectedActivity?: Activity;
   newActivity: Activity = {name: "", daysInARow: 0, id: 0};
 
-  constructor() { }
+  constructor(
+    private activityService: ActivityService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   this.activityService.getActivities().subscribe(activities => this.activities = activities);
+  }
 
   onSelect(activity: Activity): void {
     if (this.selectedActivity === activity) {
@@ -45,6 +47,7 @@ export class ActivityComponent implements OnInit {
         this.selectedActivity.daysInARow = 0;
       }
     }
+    this.updateActivity();
   }
 
   incrementDaysInARow(): void {
@@ -54,6 +57,15 @@ export class ActivityComponent implements OnInit {
       } else {
         this.selectedActivity.daysInARow = 1;
       }
+    }
+    this.updateActivity();
+  }
+
+  updateActivity(): void {
+    if (this.selectedActivity) {
+      this.activityService.updateActivity(this.selectedActivity).subscribe(activity => {
+        this.selectedActivity = activity;
+      });
     }
   }
 

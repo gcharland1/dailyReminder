@@ -72,6 +72,10 @@
             },
             "development": {
               "browserTarget": "daily-reminder:build:development"
+            },
+            "options": {
+              "host": "dailyreminder.gc",
+              "port": 4200
             }
           },
           "defaultConfiguration": "development"
