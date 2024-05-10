@@ -25,6 +25,7 @@ export class ActivityComponent implements OnInit {
   }
 
   onSelect(activity: Activity): void {
+    this.updateActivity();
     if (this.selectedActivity === activity) {
       this.selectedActivity = undefined;
     } else {
@@ -47,7 +48,6 @@ export class ActivityComponent implements OnInit {
         this.selectedActivity.daysInARow = 0;
       }
     }
-    this.updateActivity();
   }
 
   incrementDaysInARow(): void {
@@ -58,7 +58,6 @@ export class ActivityComponent implements OnInit {
         this.selectedActivity.daysInARow = 1;
       }
     }
-    this.updateActivity();
   }
 
   updateActivity(): void {
