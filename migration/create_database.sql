@@ -10,5 +10,3 @@ INSERT INTO activities ('id', 'name', 'days_in_a_row') VALUES
     (1, "Cube Rubik's", 0),
     (2, "Course à pieds", 0),
     (3, "Yoga", 0);
-
-COMMIT;
