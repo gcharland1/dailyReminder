@@ -28,14 +28,27 @@ func getActivities(c *gin.Context) {
         c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
+    defer db.Close()
 
     rows, err := db.Query("SELECT * FROM activities")
     if err != nil {
         c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
+    defer rows.Close()
 
-    c.IndentedJSON(http.StatusOK, rows)
+    data := []Activity{}
+    for rows.Next() {
+        a := Activity{}
+        err = rows.Scan(&a.ID, &a.Name, &a.DaysInARow) 
+        if err != nil {
+            c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            return
+        }
+        data = append(data, a)
+    }
+
+    c.IndentedJSON(http.StatusOK, data)
 }
 
 // Controller
